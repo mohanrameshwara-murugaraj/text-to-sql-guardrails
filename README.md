@@ -9,7 +9,7 @@ Instead of treating valid SQL as a correct answer, the application separates **g
 - **User flow:** English question → schema-aware prompt → Ollama (`qwen2.5-coder:3b`) → candidate SQL → SQLGlot allowlist → read-only DuckDB → semantic checks → FastAPI → Streamlit.
 - **Real app:** local browser interface showing SQL, results, timing, and validation details.
 - **Measured:** **8/8** exact result matches for answerable questions; **2/2** expected clarification outcomes on a **single, 10-question synthetic-database evaluation**; **7.249 s** mean end-to-end latency per case in that run.
-- **Automated tests:** **91 passed, 1 dependency deprecation warning** in the last reported run (2026-11-12), before adding this documentation package. Re-run tests on your machine and CI.
+- **Automated tests:** **91 passed, 1 dependency deprecation warning** in the reported local run (2026-11-12); GitHub Actions also passed for the published project.
 - **Critical caveat:** no wrong executed answers occurred in the live benchmark, so **live wrong-answer detection rate was not measurable** (not 100%).
 
 ## Why this exists
@@ -97,7 +97,9 @@ For an additional fixed set of SQL validity/semantic cases (without running an L
 python scripts/evaluate_negative.py
 ```
 
-This script records **targeted regression outcomes**, not generalizable detection sensitivity. Its output goes to `results/negative_cases_latest.json` (generated locally). Results from this added script are **not yet measured** in the observed 2026-11-12 evaluation.
+The separate regression run matched **5/5 expected outcomes**: two intended passes and three intended warnings. This is **not** a live-model hallucination detection rate. Its generated local report is `results/negative_cases_latest.json`.
+
+**Published evidence:** [Curated benchmark snapshot](evaluation/reports/2026-11-12-summary.json) contains the observed aggregate live metrics and the separately labeled five-case regression result. It is a sanitized summary, **not** an invented per-question trace; raw run outputs remain excluded from Git.
 
 ## Project structure
 
@@ -141,4 +143,4 @@ See [Limitations and threat model](docs/SECURITY_AND_LIMITATIONS.md) for precise
 
 ## Status
 
-**Portfolio MVP demonstrated, GitHub publication pending.** The measured local UI, executor, and model path are working; the final GitHub state and CI must be verified after you add these files. Do not describe this as production-ready.
+**Portfolio MVP published on GitHub; CI verified successful** for commit `3569d66` (2026-11-12). Subsequent documentation changes require their own CI checks. This remains a local portfolio prototype, not production-ready.
