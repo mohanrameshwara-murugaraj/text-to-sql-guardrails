@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.duckdb
+.env
+.DS_Store
+
+# Generated package metadata
+*.egg-info/
+
+# Generated evaluation results
+results/
+
+# Local configuration and build artifacts
+.env.*
+build/
+dist/

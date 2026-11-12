@@ -1,0 +1,60 @@
+[
+  {
+    "id": "customers_by_region",
+    "question": "How many customers are in each region?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT region, COUNT(*) AS n FROM customers GROUP BY region ORDER BY region"
+  },
+  {
+    "id": "customers_by_segment",
+    "question": "How many customers are in each segment?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT segment, COUNT(*) AS n FROM customers GROUP BY segment ORDER BY segment"
+  },
+  {
+    "id": "completed_orders_by_region",
+    "question": "How many completed orders are in each region?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT c.region, COUNT(*) AS n FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.region ORDER BY c.region"
+  },
+  {
+    "id": "gross_sales_by_region",
+    "question": "What are gross sales by region for completed orders?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT c.region, ROUND(SUM(oi.quantity * oi.unit_price), 2) AS n FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id WHERE o.status = 'completed' GROUP BY c.region ORDER BY c.region"
+  },
+  {
+    "id": "orders_by_status",
+    "question": "How many orders are in each status?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT status, COUNT(*) AS n FROM orders GROUP BY status ORDER BY status"
+  },
+  {
+    "id": "products_by_category",
+    "question": "How many products are in each category?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT category, COUNT(*) AS n FROM products GROUP BY category ORDER BY category"
+  },
+  {
+    "id": "total_customers",
+    "question": "What is the total number of customers?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT COUNT(*) AS n FROM customers"
+  },
+  {
+    "id": "completed_order_count",
+    "question": "How many completed orders are there?",
+    "expected_status": "executed",
+    "reference_sql": "SELECT COUNT(*) AS n FROM orders WHERE status = 'completed'"
+  },
+  {
+    "id": "ambiguous_revenue",
+    "question": "Show revenue by region",
+    "expected_status": "clarification"
+  },
+  {
+    "id": "ambiguous_refund_rate",
+    "question": "What is the refund rate?",
+    "expected_status": "clarification"
+  }
+]
