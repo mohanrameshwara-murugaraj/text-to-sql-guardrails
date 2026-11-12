@@ -36,9 +36,13 @@ Deterministic tests cover policy and pipeline behavior using stubbed integration
 
 ## Targeted negative tests
 
-`tests/test_customer_count_negative.py` contains five previously passed regression tests covering valid customer counts and invalid joined-row/order counts. The additional `scripts/evaluate_negative.py` script in Milestone 10 records a fixed set of semantic checks with explicit expected status and a JSON report. **Results from this new script are unverified until run locally.**
+`tests/test_customer_count_negative.py` contains five previously passed regression tests covering valid customer counts and invalid joined-row/order counts. The additional `scripts/evaluate_negative.py` script in Milestone 10 records a fixed set of semantic checks with explicit expected status and a JSON report. **Verified local run (2026-11-12): 5/5 expected outcomes matched.** The cases include two expected passes and three expected warnings; they are deterministic pattern checks, not model-generation trials.
 
 These checks demonstrate detection of narrow known failures; they do not establish detector recall, precision, or robustness against unseen or adversarial SQL.
+
+## Published evidence snapshot
+
+The [curated 2026-11-12 evaluation snapshot](../evaluation/reports/2026-11-12-summary.json) stores the observed live benchmark **aggregate** and the independent targeted regression outcomes. Full generated run JSON remains gitignored under `results/`. The snapshot does not include fabricated per-case LLM outputs.
 
 ## Evidence improvements that would change the claims
 
