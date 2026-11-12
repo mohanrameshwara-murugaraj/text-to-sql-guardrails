@@ -1,0 +1,62 @@
+{
+  "title": "Text-to-SQL local benchmark — curated evidence snapshot",
+  "run_date": "2026-11-12",
+  "source": "User-reported local terminal outputs from python scripts/evaluate.py and python scripts/evaluate_negative.py",
+  "model": "qwen2.5-coder:3b via local Ollama",
+  "database": "Deterministic synthetic DuckDB sales database (data/sales.duckdb)",
+  "live_model_evaluation": {
+    "cases_total": 10,
+    "answerable_cases": 8,
+    "exact_answer_matches": 8,
+    "exact_answer_accuracy": 1,
+    "executed_answerable_cases": 8,
+    "execution_rate": 1,
+    "ambiguous_cases": 2,
+    "correct_clarifications": 2,
+    "clarification_rate": 1,
+    "wrong_executed_answers": 0,
+    "wrong_answers_flagged_by_validator": 0,
+    "wrong_answer_detection_rate": null,
+    "mean_latency_s": 7.249,
+    "observed_status_counts": {
+      "executed": 8,
+      "clarification": 2
+    },
+    "limitations": "One local run on a small, schema-specific benchmark; no wrong executed answers, so detector recall cannot be estimated. Aggregate results only; original per-question live report was not provided for publication."
+  },
+  "targeted_negative_case_regression": {
+    "mode": "deterministic fixed-SQL pattern checks; no LLM inference or real query execution",
+    "cases": 5,
+    "expected_outcomes_matched": 5,
+    "cases_by_expected_status": [
+      {
+        "id": "customer_count_plain",
+        "expected": "pass"
+      },
+      {
+        "id": "joined_rows_wrong",
+        "expected": "warning"
+      },
+      {
+        "id": "joined_orders_wrong",
+        "expected": "warning"
+      },
+      {
+        "id": "joined_distinct_customer",
+        "expected": "pass"
+      },
+      {
+        "id": "joined_distinct_order_wrong",
+        "expected": "warning"
+      }
+    ],
+    "limitations": "These five checks validate narrow known customer-count semantic patterns; not a representative hallucination-detection benchmark or detection-rate estimate."
+  },
+  "reproducibility": {
+    "live_command": "python scripts/evaluate.py",
+    "negative_case_command": "python scripts/evaluate_negative.py",
+    "evaluation_input": "evaluation/cases.json",
+    "generated_live_output": "results/evaluation_latest.json (gitignored)",
+    "generated_negative_output": "results/negative_cases_latest.json (gitignored)"
+  }
+}
